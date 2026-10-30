@@ -40,4 +40,6 @@
 
 ## Follow-up verification
 
-After this retrospective was written, verification was expanded: 14 Worker tests passed, including local end-to-end attendance and stall runs; the backend TypeScript check passed; 8 .NET tests passed for API calls, upload handling, and progress-event replay; the WPF app built with zero warnings and started with its main window visible. Vitest continued to print its shutdown-timeout warning after the tests passed. No live Workers AI inbox request was made, so remote model availability and the quality of generated replies remain unverified.
+After this retrospective was written, verification was expanded: 14 Worker tests passed, including local end-to-end attendance and stall runs; the backend TypeScript check passed; 8 .NET tests passed for API calls, upload handling, and progress-event replay; the WPF app built with zero warnings and started with its main window visible. Vitest continued to print its shutdown-timeout warning after the tests passed.
+
+One subsequent live Workers AI check used the included four-message inbox sample. The run completed and returned exactly four drafts, preserved all four sample IDs, and passed checks for non-empty intent/reply fields and `Needs review` on every row. This verifies remote model connectivity and the response contract for that sample, not the factual quality or appropriateness of each generated reply; a human should still review them.

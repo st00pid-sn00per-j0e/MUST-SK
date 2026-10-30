@@ -48,4 +48,4 @@ dotnet test tests\AgentClient.Tests\AgentClient.Tests.csproj
 dotnet build src\AgentClient.App\AgentClient.App.csproj
 ```
 
-The Worker suite includes CSV workflow tests and local end-to-end attendance and stall runs. The .NET tests cover API requests, error handling, output download, and CSV upload progress. A live Inbox run calls the configured Workers AI binding and may incur usage charges; automated tests validate the inbox input/output contract without making that paid AI call.
+The Worker suite includes CSV workflow tests and local end-to-end attendance and stall runs. The .NET tests cover API requests, error handling, output download, CSV upload progress, and progress-event replay. A live Inbox run calls the configured Workers AI binding and may incur usage charges; automated tests validate the inbox input/output contract without making that paid AI call. One manual live check with the included four-message sample completed and returned four review-marked drafts; this confirms the integration path, not the quality of each draft.
