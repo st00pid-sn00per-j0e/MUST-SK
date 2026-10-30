@@ -1,0 +1,6 @@
+employee,date,scheduled_hours,worked_hours,leave_hours
+Alex,2026-10-25,8,8,0
+Alex,2026-10-26,8,5,0
+Jordan,2026-10-25,8,4,4
+Jordan,2026-10-26,8,13,0
+Morgan,2026-10-25,7.5,7.5,0
