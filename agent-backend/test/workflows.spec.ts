@@ -51,6 +51,30 @@ describe("CSV workflows", () => {
 
 	it("rejects malformed CSV quoting and duplicate headers", () => {
 		expect(() => prepareInboxRows('message\n"unfinished')).toThrow("unclosed quoted field");
+		expect(() => prepareInboxRows('message\n"closed"extra')).toThrow("characters after a closing quote");
+		expect(() => prepareInboxRows('message\nun"expected')).toThrow("unexpected quote");
 		expect(() => prepareInboxRows("message,message\none,two")).toThrow("duplicate column headers");
+	});
+
+	it("accepts the body alias, assigns IDs, and handles quoted newlines", () => {
+		const rows = prepareInboxRows('body\n"Could you help,\nplease?"\n');
+
+		expect(rows).toEqual([
+			{ id: "message-1", sender: "", subject: "", message: "Could you help,\nplease?" },
+		]);
+	});
+
+	it("rejects duplicate inbox IDs and mismatched row widths", () => {
+		expect(() => prepareInboxRows("id,message\nsame,first\nsame,second")).toThrow("unique values");
+		expect(() => prepareInboxRows("message,sender\nonly-one-cell")).toThrow("expected 2");
+	});
+
+	it("rejects invalid attendance dates and invalid stall thresholds", () => {
+		expect(() =>
+			analyzeAttendance("employee,date,scheduled_hours,worked_hours,leave_hours\nAda,2026-02-30,8,8,0"),
+		).toThrow('invalid "date"');
+		expect(() => analyzeStalls("candidate,stage,last_moved_date\nAda,Screen,2026-10-10", 0)).toThrow(
+			"between 1 and 365",
+		);
 	});
 });

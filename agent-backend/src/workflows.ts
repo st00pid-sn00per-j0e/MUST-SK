@@ -15,6 +15,7 @@ function parseCsv(input: string): CsvRow[] {
 	let row: string[] = [];
 	let field = "";
 	let quoted = false;
+	let quoteClosed = false;
 
 	for (let i = 0; i < text.length; i++) {
 		const char = text[i];
@@ -24,20 +25,26 @@ function parseCsv(input: string): CsvRow[] {
 				i++;
 			} else if (char === '"') {
 				quoted = false;
+				quoteClosed = true;
 			} else {
 				field += char;
 			}
-		} else if (char === '"' && field.length === 0) {
-			quoted = true;
 		} else if (char === ",") {
 			row.push(field);
 			field = "";
+			quoteClosed = false;
 		} else if (char === "\n" || char === "\r") {
 			if (char === "\r" && text[i + 1] === "\n") i++;
 			row.push(field);
 			field = "";
 			if (row.some((cell) => cell.trim() !== "")) matrix.push(row);
 			row = [];
+			quoteClosed = false;
+		} else if (quoteClosed) {
+			throw new Error("CSV contains characters after a closing quote.");
+		} else if (char === '"') {
+			if (field.length !== 0) throw new Error("CSV contains an unexpected quote in an unquoted field.");
+			quoted = true;
 		} else {
 			field += char;
 		}

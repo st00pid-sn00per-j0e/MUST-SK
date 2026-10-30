@@ -44,5 +44,8 @@ cd agent-backend
 npm test -- --run
 npx tsc --noEmit
 cd ..
+dotnet test tests\AgentClient.Tests\AgentClient.Tests.csproj
 dotnet build src\AgentClient.App\AgentClient.App.csproj
 ```
+
+The Worker suite includes CSV workflow tests and local end-to-end attendance and stall runs. The .NET tests cover API requests, error handling, output download, and CSV upload progress. A live Inbox run calls the configured Workers AI binding and may incur usage charges; automated tests validate the inbox input/output contract without making that paid AI call.

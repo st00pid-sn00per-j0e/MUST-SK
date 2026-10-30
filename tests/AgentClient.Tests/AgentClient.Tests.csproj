@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AgentClient.Core\AgentClient.Core.csproj" />
+  </ItemGroup>
+
 </Project>

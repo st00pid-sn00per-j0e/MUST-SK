@@ -37,3 +37,7 @@
 - **Evidence in the deliverable:** Worker tests, sample files, TypeScript type-check, WPF build, and .NET test results.
 - **Observed result:** Worker tests passed (9 tests), TypeScript type-check passed, desktop build passed with no warnings, and the .NET test passed. Vitest also printed a shutdown-timeout warning after reporting successful tests. The recorded `npx tsc --noEmit` attempt from the repository root failed because it selected the wrong package context; running the backend's local TypeScript compiler succeeded.
 - **Still to do:** Record the actual five-minute demo and verify the inbox with a live AI-backed run. Do not present this reconstructed sequence as proof those checks happened.
+
+## Follow-up verification
+
+After this retrospective was written, verification was expanded: 14 Worker tests passed, including local end-to-end attendance and stall runs; the backend TypeScript check passed; 8 .NET tests passed for API calls, upload handling, and progress-event replay; the WPF app built with zero warnings and started with its main window visible. Vitest continued to print its shutdown-timeout warning after the tests passed. No live Workers AI inbox request was made, so remote model availability and the quality of generated replies remain unverified.
